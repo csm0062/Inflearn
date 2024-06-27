@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Hostel(HTML)</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #661717;
+            overflow: hidden; /* 화면 크기 고정을 위해 스크롤바 제거 */
+        }
+        
+        #game-container {
+            width: 1280px;
+            height: 832px;
+            background-color: #000; /* 게임 배경색 */
+            position: relative;
+            margin: auto; /* 가운데 정렬 */
+            overflow: hidden; /* 게임 영역을 넘어가는 부분 숨김 */
+        }
+        
+        /* 여기에 추가적인 CSS 스타일링을 필요에 따라 추가 */
+
+        #overlay-top, #overlay-bottom {
+            position: absolute;
+            width: 100%;
+            height: 10%; /* 화면의 절반을 가리기 위해 50%로 설정 */
+            background-color: #000; /* 검은색 배경 */
+            z-index: 1; /* 게임 콘텐츠 위에 위치하도록 */
+        }
+        #overlay-top {
+            top: 0;
+        }
+        
+        #overlay-bottom {
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="overlay-top"></div>
+    <div id="game-container">
+    <!-- 게임 요소들을 이곳에 추가합니다. -->
+    </div>
+    <div id="overlay-bottom"></div>
+    <!-- 추가적으로 필요한 스크립트 등을 불러오기 -->
+</body>
+</html>
