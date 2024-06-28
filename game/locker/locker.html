@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>picture_locker</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Homemade+Apple&display=swap');
+    
+    
+    .modal {
+        text-align: center;
+    }
+
+    .modal-content {
+        display: flex;
+        flex-direction: column;
+        width: 10rem;
+        top: 20rem;
+        height: auto;
+        pointer-events: auto;
+        flex-wrap: wrap;
+        align-content: space-around;
+        border: 2px solid black;
+        background-color: #45281A
+    }
+
+    @media screen and (min-width: 768px) {
+        .modal:before {
+            display: inline-block;
+            vertical-align: middle;
+            content: " ";
+            height: 100%;
+        }
+    }
+
+    .modal-dialog {
+        display: inline-block;
+        text-align: left;
+        vertical-align: middle;
+    }
+
+    .container {
+        display: flex;
+    }
+
+    .box {
+        border: 2px solid black;
+        border-radius: 3px;
+        margin: 1px;
+        /* font-size: 2.5rem; */
+        /* font-weight: 700; */
+        height: 3rem;
+        width: 3rem;
+        display: flex;
+        background-color: aliceblue;
+        /* justify-content: center;
+        align-items: center;
+        text-transform: uppercase; */
+        cursor: pointer;
+        /* 왼쪽으로 정렬하는 기능 */
+        float: left;
+    }
+
+
+    .clearbtn {
+        display: inline-block;
+        height: 2rem;
+        width: 8rem;
+        background-color: #5A2C15;
+        border: 2px solid black;
+    }
+
+    .clearbtn.active {
+        box-shadow: inset -5px 5px 20px rgba(0, 0, 0, 0.4);
+        background-color: linear-gradient(to bottom, #fff 0%, #3d1e0e 100%);
+    }
+
+    #back-button {
+        position: absolute;
+        bottom: 200px;
+        left: 45%;
+        transform: translateX(-50%);
+        padding: 10px 20px;
+        background-color: rgba(107, 48, 48, 0.8);
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1rem;
+        font-family: "Homemade Apple", cursive;
+    }
+
+    #modalbtn {
+        position: absolute;
+        bottom: 200px;
+        right: 45%;
+        transform: translateX(-50%);
+        padding: 10px 20px;
+        background-color: rgba(107, 48, 48, 0.8);
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1rem;
+        font-family: "Homemade Apple", cursive;
+    }
+</style>
+
+<body>
+    <!------------------------------------------------------------------------------------->
+    <!-- 나중에 버튼을 hidden으로 두고 서랍을 클릭하면 이 버튼이 눌리게 매핑하면 좋을 것 같음. -->
+    <!------------------------------------------------------------------------------------->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#intro"
+        id="modalbtn">🔒</button>
+    <button type="button" id="back-button">back</button>
+
+
+    <div class="modal fade" id="intro">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+
+                    <div class="container">
+                        <div class="box" id="box1"></div>
+                        <div class="box" id="box2"></div>
+                    </div>
+                    <div class="container">
+                        <div class="box" id="box3"></div>
+                        <div class="box" id="box4"></div>
+                    </div>
+                    <button type="button" class="clearbtn">🟫</button>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const box = document.querySelector(".box");
+        const box1 = document.querySelector("#box1");
+        const box2 = document.querySelector("#box2");
+        const box3 = document.querySelector("#box3");
+        const box4 = document.querySelector("#box4");
+        const clearbtn = document.querySelector(".clearbtn");
+        // const modalbtn = document.querySelector("#modalbtn");
+
+        let cnt1 = Math.floor(Math.random() * 4);
+        let cnt2 = Math.floor(Math.random() * 4);
+        let cnt3 = Math.floor(Math.random() * 4);
+        let cnt4 = Math.floor(Math.random() * 3); // <= 1/16확률로 한번에 끝나지 않게
+
+        // modalbtn.addEventListener("click", (e) => {
+        // box.style.backgroundImage = none;
+        // $("#box1").css("background-image", "none");
+        // });
+
+        box1.addEventListener("click", (e) => {
+            cnt1++;
+
+            box1.style.backgroundImage = `url('/imgForClue_0${cnt1}.png')`
+
+            if (cnt1 === 4) {
+                cnt1 = 0;
+            }
+        });
+        box2.addEventListener("click", (e) => {
+            cnt2++;
+
+            box2.style.backgroundImage = `url('/imgForClue_0${cnt2}.png')`
+
+            if (cnt2 === 4) {
+                cnt2 = 0;
+            }
+        });
+        box3.addEventListener("click", (e) => {
+            cnt3++;
+
+            box3.style.backgroundImage = `url('/imgForClue_0${cnt3}.png')`
+
+            if (cnt3 === 4) {
+                cnt3 = 0;
+            }
+        });
+        box4.addEventListener("click", (e) => {
+            cnt4++;
+
+            box4.style.backgroundImage = `url('/imgForClue_0${cnt4}.png')`
+
+            if (cnt4 === 4) {
+                cnt4 = 0;
+            }
+        });
+
+        clearbtn.addEventListener("click", (e) => {
+            // 마지막번째 사진은 0이여야 열림
+
+            clearbtn.classList.add("active");
+            setTimeout(() => { // removing active class after 150 ms from the clicked key element
+                clearbtn.classList.remove("active");
+            }, 150);
+
+            if (cnt1 === 1 && cnt2 === 2 && cnt3 === 3 && cnt4 === 0) {
+                alert("올ㅋ 열림!");
+            }
+        });
+
+        document.getElementById('back-button').addEventListener('click', (e) => {
+            window.location.href='../../HTML/_03_right_wall.html';
+        });
+
+    </script>
+</body>
+</html>

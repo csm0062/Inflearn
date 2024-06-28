@@ -1,0 +1,158 @@
+@import url('https://fonts.googleapis.com/css2?family=Homemade+Apple&display=swap');
+
+@font-face {
+    font-family: 'yleeMortalHeartImmortalMemory';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2205@1.0/yleeMortalHeartImmortalMemory.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@media (max-width: 1280px) {
+    .investigate-button, .enter-button {
+        display: none;
+    }
+}
+
+/* ---------------------------------------------------------------------- */
+
+body {
+    font-family: "Homemade Apple", 'yleeMortalHeartImmortalMemory', cursive;
+    margin: 0;
+    padding: 0;
+    background: #661717;
+    /* overflow: hidden; 화면 크기 고정을 위해 스크롤바 제거 */
+    display: flex;
+    justify-content: center; /* 가로 방향 가운데 정렬 */
+    align-items: center; /* 세로 방향 가운데 정렬 */
+    height: 100vh; /* 화면 전체 높이를 사용 */
+    font-weight: bold;
+}
+
+/* ---------------------------------------------------------------------- */
+
+#game-container {
+    width: 1280px;
+    height: 832px;
+    background-color: #000; /* 게임 배경색 */
+    position: relative;
+    margin: auto; /* 가운데 정렬 */
+    overflow: hidden; /* 게임 영역을 넘어가는 부분 숨김 */
+}
+
+#overlay-top, #overlay-bottom {
+    position: fixed;
+    width: 100%;
+    height: 10vh; /* 화면의 절반을 가리기 위해 50%로 설정 */
+    background-color: #000; /* 검은색 배경 */
+    z-index: 1; /*게임 콘텐츠 위에 위치하도록*/
+}
+
+#overlay-top {
+    top: 0;
+}
+
+#overlay-bottom {
+    bottom: 0;
+}
+
+#title-box {
+    position: absolute;
+    top: 200px;
+    left: 100px;
+    font-size: 5rem;
+    color: rgb(238, 182, 182);
+    display: block;
+}
+
+#text-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    background-color: rgba(255, 255, 255, 0.8); /* 반투명 배경 */
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    display: none; /* 처음에는 숨김 */
+}
+
+#left-button {
+    left: 10px;
+}
+
+#right-button {
+    right: 10px;
+}
+/* ---------------------------------------------------------------------- */
+
+.nav-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    padding: 10px;
+    font-size: 2rem;
+    cursor: pointer;
+    font-family: "Homemade Apple", 'yleeMortalHeartImmortalMemory', cursive;
+    z-index: 2;
+}
+
+.investigate-button, .enter-button {
+    position: absolute;
+    padding: 10px 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-family: "Homemade Apple", 'yleeMortalHeartImmortalMemory', cursive;
+    z-index: 2;
+}
+
+.investigate-button {
+    bottom: 20px;
+    left: 20px;
+}
+
+.enter-button {
+    bottom: 20px;
+    right: 20px;
+}
+
+.close-button {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-family: "Homemade Apple", 'yleeMortalHeartImmortalMemory', cursive;
+    z-index: 2;
+}
+
+.shadow-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%);
+    z-index: 1; /* 게임 콘텐츠 위에 위치 */
+    pointer-events: none; /* 마우스 이벤트가 통과하도록 설정 */
+}
+
+/* 클릭 가능한 영역에 대한 스타일 */
+.clickable-area {
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+
+
