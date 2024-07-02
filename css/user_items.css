@@ -66,112 +66,114 @@
     justify-content: flex-end;
 } */
 
-        /*-----------------------*/
-        /*    아이템 매핑 box     */
-        /*-----------------------*/
-        .box1-item {
-            width: 10rem;
-            height: 9.0rem;
-            border-radius: 10%;
-            background-repeat : no-repeat;
-            background-position: bottom;
-            /*-----------------------*/
-            /*아이템 획득시 추가할 내용*/
-            /*-----------------------*/
-            background-image: url(../image/images/useritem/칵테일잔.PNG);
-            background-size: 50%;
-            cursor:pointer;
-        }
-        .box1-1-item {
-            width: 10rem;
-            height: 9.5rem;
-            border-radius: 10%;
-            background-repeat : no-repeat;
-            background-position: center;
-            background-image: url(../사용자아이템창/칵테일잔.PNG);
-            cursor:pointer;
-        }
+/*-----------------------*/
+/*    아이템 매핑 box     */
+/*-----------------------*/
+.box1-item {
+    width: 10rem;
+    height: 9.0rem;
+    border-radius: 10%;
+    background-repeat : no-repeat;
+    background-position: bottom;
+    /*-----------------------*/
+    /*아이템 획득시 추가할 내용*/
+    /*-----------------------*/
+    background-image: url(../image/images/useritem/칵테일잔.PNG);
+    background-size: 50%;
+    cursor:pointer;
+}
 
-        .box2-item {
-            text-align: center;
-            width: 10rem;
-            height: 9rem;
-            border-radius: 10%;
-            background-repeat : no-repeat;
-            background-position: center;
-            background-image: url(../image/images/useritem/깨진액자.PNG);
-            background-size: 80%;
-            cursor:pointer;
-        }
+.box2-item {
+    text-align: center;
+    width: 10rem;
+    height: 9rem;
+    border-radius: 10%;
+    background-repeat : no-repeat;
+    background-position: center;
+    background-image: url(../image/images/useritem/깨진액자.PNG);
+    background-size: 80%;
+    cursor:pointer;
+}
 
-        .box3-item {
-            text-align: center;
-            width: 10rem;
-            height: 8.6rem;
-            border-radius: 10%;
-            background-repeat : no-repeat;
-            background-position: center;
-            background-image: url(../image/images/useritem/심장.PNG);
-            background-size: 50%;
-            cursor:pointer;
-        }
+.box3-item {
+    text-align: center;
+    width: 10rem;
+    height: 8.6rem;
+    border-radius: 10%;
+    background-repeat : no-repeat;
+    background-position: center;
+    background-image: url(../image/images/useritem/심장.PNG);
+    background-size: 50%;
+    cursor:pointer;
+}
 
-        .box4-item {
-            text-align: center;
-            width: 10rem;
-            height: 8.6rem;
-            border-radius: 10%;
-            background-repeat : no-repeat;
-            background-position: center;
-            background-image: url(../image/images/useritem/가위.png);
-            background-size: 80%;
-            cursor:pointer;
-        }
+.box4-item {
+    text-align: center;
+    width: 10rem;
+    height: 8.6rem;
+    border-radius: 10%;
+    background-repeat : no-repeat;
+    background-position: center;
+    background-image: url(../image/images/useritem/가위.png);
+    background-size: 80%;
+    cursor:pointer;
+}
 
-        .box4-1-item {
-            text-align: center;
-            width: 10rem;
-            height: 8.6rem;
-            border-radius: 10%;
-            background-repeat : no-repeat;
-            background-position: center;
-            background-image: url(../image/images/useritem/쟁미.png);
-            background-size: cover;
-            cursor:pointer;
-        }
+.box4-1-item {
+    text-align: center;
+    width: 10rem;
+    height: 8.6rem;
+    border-radius: 10%;
+    background-repeat : no-repeat;
+    background-position: center;
+    background-image: url(../image/images/useritem/쟁미.png);
+    background-size: cover;
+    cursor:pointer;
+}
 
-        .box5-item {
-            text-align: center;
-            width: 10rem;
-            height: 8.7rem;
-            border-radius: 10%;
-            background-repeat : no-repeat;
-            background-position: center;
-            background-image: url(../image/images/useritem/손목시계.PNG);
-            background-size: 75%;
-            cursor:pointer;
-        }
-        .box6-item {
-            text-align: center;
-            width: 10rem;
-            height:8.6rem;
-            border-radius: 10%;
-            background-repeat : no-repeat;
-            background-position: center;
-            background-image: url(../image/images/useritem/반지.PNG);
-            background-size: 70%;
-            cursor:pointer;
-        }
+.box5-item {
+    text-align: center;
+    width: 10rem;
+    height: 8.7rem;
+    border-radius: 10%;
+    background-repeat : no-repeat;
+    background-position: center;
+    background-image: url(../image/images/useritem/손목시계.PNG);
+    background-size: 75%;
+    cursor:pointer;
+}
+.box6-item {
+    text-align: center;
+    width: 10rem;
+    height:8.6rem;
+    border-radius: 10%;
+    background-repeat : no-repeat;
+    background-position: center;
+    background-image: url(../image/images/useritem/반지.PNG);
+    background-size: 70%;
+    cursor:pointer;
+}
 
-        .box7-item {
-            text-align: center;
-            width: 10rem;
-            height: 8.6rem;
-            border-radius: 10%;
-            background-repeat : no-repeat;
-            background-position: center;
-            background-image: url(../image/images/useritem/동전.png);
-            background-size: 75%;
-            cursor:pointer;
-        }
-        
+.box7-item {
+    text-align: center;
+    width: 10rem;
+    height: 8.6rem;
+    border-radius: 10%;
+    background-repeat : no-repeat;
+    background-position: center;
+    background-image: url(../image/images/useritem/동전.png);
+    background-size: 75%;
+    cursor:pointer;
+}
+
+/* 아이템 박스 숨기기 */
+/* .box1-item,
+.box2-item,
+.box3-item,
+.box4-item,
+.box5-item,
+.box6-item,
+.box7-item {
+    visibility: hidden;
+}
+처음에 아이템 박스를 숨깁니다 */

@@ -287,3 +287,4 @@ function resetLiquorClickCounts() {
 }
 // 초기 영역 추가
 addClickableAreas();
+
