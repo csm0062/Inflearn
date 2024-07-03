@@ -69,11 +69,11 @@ const patternbox = document.querySelector(".patternbox");
                 clearbtn.classList.remove("active");
             }, 150);
 
-            if (cnt1 === 1 && cnt2 === 2 && cnt3 === 3 && cnt4 === 0) {
+            if (cnt1 === 3 && cnt2 === 2 && cnt3 === 1 && cnt4 === 0) {
                 alert("올ㅋ 열림!");
             }
         });
 
         document.getElementById('back-button').addEventListener('click', function() {
             window.location.href = '../../HTML/_03_right_wall.html'; // 돌아갈 페이지로 이동
-          });
+        });

@@ -1,8 +1,10 @@
 // 클릭 이벤트 관련 변수 초기화
-let buttonDisplayed = false; 
-let secondImageDisplayed = false; 
+let buttonDisplayed = false;
+let secondImageDisplayed = false;
 let thirdImageDisplayed = false;
-let otherAreaClicked = false; 
+let otherAreaClicked = false;
+let boyfriendAreaClicked = false; // 남자친구 영역 클릭 여부 추적 변수
+let itemSelected = null; // 선택된 아이템 추적 변수
 
 const liquorClickCounts = {
     '봄베이따르기': 0,
@@ -47,17 +49,19 @@ function addClickableAreas() {
         document.getElementById('game-container').appendChild(overlay);
 
         // 마우스 포인터를 변경하기 위한 이벤트 리스너 추가
-        overlay.addEventListener('mouseenter', function() {
+        overlay.addEventListener('mouseenter', function () {
             document.body.style.cursor = 'pointer';
         });
-        overlay.addEventListener('mouseleave', function() {
+        overlay.addEventListener('mouseleave', function () {
             document.body.style.cursor = 'default';
         });
 
         // 클릭 이벤트 리스너 추가
-        overlay.addEventListener('click', function(event) {
+        overlay.addEventListener('click', function (event) {
             event.stopPropagation(); // 이벤트 전파를 막아 오버레이 뒤의 요소가 클릭되지 않도록 함
             handleOverlayClick(event, area);
+            document.getElementById("left-button").style.display = "none";
+            document.getElementById("right-button").style.display = "none";
         });
     });
 }
@@ -78,15 +82,15 @@ function addLiquorAreas() {
         document.getElementById('game-container').appendChild(overlay);
 
         // 마우스 포인터를 변경하기 위한 이벤트 리스너 추가
-        overlay.addEventListener('mouseenter', function() {
+        overlay.addEventListener('mouseenter', function () {
             document.body.style.cursor = 'pointer';
         });
-        overlay.addEventListener('mouseleave', function() {
+        overlay.addEventListener('mouseleave', function () {
             document.body.style.cursor = 'default';
         });
 
         // 클릭 이벤트 리스너 추가
-        overlay.addEventListener('click', function(event) {
+        overlay.addEventListener('click', function (event) {
             event.stopPropagation(); // 이벤트 전파를 막아 오버레이 뒤의 요소가 클릭되지 않도록 함
             handleLiquorClick(event, area);
         });
@@ -95,7 +99,7 @@ function addLiquorAreas() {
 
 // 클릭 가능한 영역을 제거하는 함수
 function removeClickableAreas() {
-    const overlays = document.querySelectorAll('.clickable-area, .liquor-area, .paper-area');
+    const overlays = document.querySelectorAll('.clickable-area, .liquor-area, .paper-area, .final-area');
     overlays.forEach(overlay => {
         overlay.remove();
     });
@@ -110,18 +114,21 @@ function addCloseButton() {
     closeButton.className = "close-button";
     document.getElementById('game-container').appendChild(closeButton);
 
-    buttonDisplayed = true; 
+    buttonDisplayed = true;
 
-    closeButton.addEventListener('click', function() {
+    closeButton.addEventListener('click', function () {
         imageElement.src = '../image/images/barpage/더호스텔바.PNG';
         closeButton.remove();
         buttonDisplayed = false;
-        otherAreaClicked = false; 
+        otherAreaClicked = false;
         secondImageDisplayed = false;
         thirdImageDisplayed = false;
         resetLiquorClickCounts();
         removeClickableAreas(); // 클릭 가능한 모든 영역 제거
         addClickableAreas(); // 닫기 버튼 클릭 시 영역 다시 추가
+        document.getElementById("left-button").style.display = ""; // 왼쪽오른쪽 버튼숨기기
+        document.getElementById("right-button").style.display = "";
+
     });
 }
 
@@ -132,33 +139,41 @@ function handleOverlayClick(event, area) {
 
     function checkAreaClick(area) {
         return clickX >= area.x && clickX <= (area.x + area.width) &&
-               clickY >= area.y && clickY <= (area.y + area.height);
+            clickY >= area.y && clickY <= (area.y + area.height);
     }
-    
+
     //--------------------------//
     // 남자친구 영역 클릭 시 동작 //
     //--------------------------//
     if (area.id === 'boyfriend-area' && checkAreaClick(area) && !buttonDisplayed) {
-        imageElement.src = '../image/images/barpage/내버려둬.PNG';
-        otherAreaClicked = true; 
+        imageElement.src = '../image/images/barpage/내버려둬(잔x).png';
+        otherAreaClicked = true;
         addCloseButton();
         removeClickableAreas(); // 영역 제거
         addPaperArea(); // 남자친구 클릭 시 추가 영역 생성
-    } 
+        boyfriendAreaClicked = true; // 남자친구 영역 클릭으로 설정
+        localStorage.setItem('boyfriendAreaClicked', 'true'); // 남자친구 영역 클릭 여부를 localStorage에 저장
+    }
     // 웨이터 영역 클릭 시 동작
     else if (area.id === 'waiter-area' && checkAreaClick(area) && !buttonDisplayed) {
-        imageElement.src = '../image/images/barpage/말하는웨이터.PNG';
-        otherAreaClicked = true; 
+        imageElement.src = '../image/images/barpage/말하는웨이터_수정.PNG';
+        otherAreaClicked = true;
         addCloseButton();
         removeClickableAreas(); // 영역 제거
-    } 
+    }
     // 술장 영역 클릭 시 동작
     else if (area.id === 'liquor-area' && checkAreaClick(area) && !secondImageDisplayed && !otherAreaClicked) {
         imageElement.src = '../image/images/barpage/술있는곳확대.png';
-        secondImageDisplayed = true; 
+        secondImageDisplayed = true;
         addCloseButton();
         removeClickableAreas(); // 영역 제거
         addLiquorAreas(); // 두 번째 이미지 클릭 시 주류 영역 추가
+    } else {
+        // 갈색 술 아이템이 선택된 상태에서 잘못된 영역 클릭 시
+        if (itemSelected === '갈색술' && !checkAreaClick(area)) {
+            alert('사용할 수 없습니다.');
+            itemSelected = null; // 선택된 아이템 초기화
+        }
     }
 }
 
@@ -169,28 +184,26 @@ function handleLiquorClick(event, area) {
 
     function checkAreaClick(area) {
         return clickX >= area.x && clickX <= (area.x + area.width) &&
-               clickY >= area.y && clickY <= (area.y + area.height);
+            clickY >= area.y && clickY <= (area.y + area.height);
     }
 
     if (secondImageDisplayed && !thirdImageDisplayed && checkAreaClick(area)) {
         imageElement.src = area.image;
         liquorClickCounts[area.key] += 1;
-        thirdImageDisplayed = true; 
+        thirdImageDisplayed = true;
         document.getElementById('close-button').style.display = 'none';
 
         // 1초 후에 두 번째 이미지로 돌아가기
-        setTimeout(function() {
+        setTimeout(function () {
             checkLiquorClickCombination();
             imageElement.src = '../image/images/barpage/술있는곳확대.png';
-            thirdImageDisplayed = false; 
+            thirdImageDisplayed = false;
             document.getElementById('close-button').style.display = 'block';
         }, 1000);
     }
 }
 
-// ------------------------------------------- //
-// 특정 영역을 클릭했을 때 종이 영역 추가되는 함수 // 
-// ------------------------------------------- //
+// 특정 영역을 클릭했을 때 종이 영역 추가되는 함수
 function addPaperArea() {
     const paperArea = { x: 495, y: 717, width: 126, height: 63 };
 
@@ -207,24 +220,23 @@ function addPaperArea() {
     document.getElementById('game-container').appendChild(overlay);
 
     // 마우스 포인터를 변경하기 위한 이벤트 리스너 추가
-    overlay.addEventListener('mouseenter', function() {
+    overlay.addEventListener('mouseenter', function () {
         document.body.style.cursor = 'pointer';
     });
-    overlay.addEventListener('mouseleave', function() {
+    overlay.addEventListener('mouseleave', function () {
         document.body.style.cursor = 'default';
     });
 
     // 클릭 이벤트 리스너 추가
-    overlay.addEventListener('click', function(event) {
+    overlay.addEventListener('click', function (event) {
         event.stopPropagation(); // 이벤트 전파를 막아 오버레이 뒤의 요소가 클릭되지 않도록 함
         addWordleArea();
     });
 }
-// ---------------------------------- //
-// 월들 영역 클릭 이벤트를 처리하는 함수 //
-// ---------------------------------- //
+
+// 월들 영역 클릭 이벤트를 처리하는 함수
 function addWordleArea() {
-    const wordleArea = { x: 608 , y: 334, width: 231, height: 248, href: '../game/wordle/wordle.html'};
+    const wordleArea = { x: 608, y: 334, width: 231, height: 248, href: '../game/wordle/wordle.html' };
 
     const overlay = document.createElement('div');
     overlay.classList.add('wordle-area');
@@ -238,46 +250,215 @@ function addWordleArea() {
 
     document.getElementById('game-container').appendChild(overlay);
 
-    overlay.addEventListener('mouseenter', function() {
+    overlay.addEventListener('mouseenter', function () {
         document.body.style.cursor = 'pointer';
     });
-    overlay.addEventListener('mouseleave', function() {
+    overlay.addEventListener('mouseleave', function () {
         document.body.style.cursor = 'default';
     });
 
-    otherAreaClicked = true; 
+    otherAreaClicked = true;
     imageElement.src = '../image/images/barpage/신문.png';
-    addCloseButton();
     removeClickableAreas(); // 영역 제거
 
     // 클릭 이벤트 리스너 추가
-    overlay.addEventListener('click', function(event) {
+    overlay.addEventListener('click', function (event) {
         event.stopPropagation(); // 이벤트 전파를 막아 오버레이 뒤의 요소가 클릭되지 않도록 함
         window.location.href = '../game/wordle/wordle.html';
     });
 }
 
+// 잔완성 이미지에 클릭 영역 추가 함수
+function addFinalClickArea(drinkType) {
+    const finalArea = { x: 748, y: 546, width: 75, height: 100 };
+
+    const overlay = document.createElement('div');
+    overlay.classList.add('final-area');
+    overlay.style.position = 'absolute'; // 오버레이를 절대 위치로 설정
+    overlay.style.left = finalArea.x + 'px';
+    overlay.style.top = finalArea.y + 'px';
+    overlay.style.width = finalArea.width + 'px';
+    overlay.style.height = finalArea.height + 'px';
+    overlay.style.backgroundColor = 'transparent'; // 영역이 보이지 않도록 투명하게 설정
+    overlay.style.pointerEvents = 'auto'; // 오버레이가 클릭 이벤트를 받도록 설정
+    overlay.dataset.drinkType = drinkType; // drinkType 데이터를 저장
+
+    document.getElementById('game-container').appendChild(overlay);
+
+    // 마우스 포인터를 변경하기 위한 이벤트 리스너 추가
+    overlay.addEventListener('mouseenter', function () {
+        document.body.style.cursor = 'pointer';
+    });
+    overlay.addEventListener('mouseleave', function () {
+        document.body.style.cursor = 'default';
+    });
+
+    // 클릭 이벤트 리스너 추가
+    overlay.addEventListener('click', function (event) {
+        event.stopPropagation(); // 이벤트 전파를 막아 오버레이 뒤의 요소가 클릭되지 않도록 함
+        handleFinalClick(event.target.dataset.drinkType);
+    });
+}
+
+
+// 잔완성 이미지 클릭 시 동작
+function handleFinalClick(drinkType) {
+    imageElement.src = '../image/images/barpage/칵테일잔x.png'; // 변경할 이미지로 대체
+
+    let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
+    let itemExists;
+    let itemName;
+
+    if (drinkType === "갈색술") {
+        itemExists = inventory.includes('../image/images/useritem/갈색술.png');
+        itemName = '../image/images/useritem/갈색술.png';
+    } else if (drinkType === "보라술") {
+        itemExists = inventory.includes('../image/images/useritem/보라술.png');
+        itemName = '../image/images/useritem/보라술.png';
+    }
+
+    if (itemExists) {
+        alert("이미 같은 아이템이 인벤토리에 있습니다.");
+        return;
+    }
+
+    inventory.push(itemName);
+    localStorage.setItem('inventory', JSON.stringify(inventory));
+
+    // 획득 메시지 표시
+    alert(`${drinkType}을(를) 획득하였습니다.`);
+}
+
+// 인벤토리 아이템 클릭 이벤트 처리 조건 추가
+document.addEventListener('DOMContentLoaded', (event) => {
+    // 로컬 스토리지에서 인벤토리 데이터를 가져옴
+    let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
+    
+    // 인벤토리 데이터를 순회하며 박스에 아이템 이미지를 추가
+    inventory.forEach((item, index) => {
+        if (index < 7) {
+            const box = document.getElementById(`box${index + 1}`);
+            const img = document.createElement('img');
+            img.src = item;
+            img.className = 'item';
+            img.oncontextmenu = (e) => onContextMenu(e, index);
+            img.onclick = () => handleItemClick(item);
+            box.appendChild(img);
+        }
+    });
+});
+
+// 아이템 클릭 이벤트 처리 함수
+function handleItemClick(item) {
+    if (item === '../image/images/useritem/갈색술.png') {
+        history.back();
+        itemSelected = '갈색술';
+        localStorage.setItem("itemSelected", itemSelected);
+        alert('갈색 술이 선택되었습니다.');
+    } else if (item === '../image/images/useritem/레시피2.png') {
+        const modal = document.getElementById('recipe-modal');
+        const modalImg = document.getElementById('modal-img');
+        modalImg.src = item;
+        modal.style.display = 'block';
+    } else if (item === '../image/images/useritem/보라술.png') {
+        history.back();
+        itemSelected = '보라술';
+        localStorage.setItem("itemSelected", itemSelected);
+        alert('보라술이 선택되었습니다.');
+    }
+}
+
+// 메시지를 화면 가운데에 표시하는 함수
+function displayMessage1(message) {
+    const messageBox = document.createElement('div');
+    messageBox.textContent = message;
+    messageBox.style.position = 'fixed';
+    messageBox.style.top = '50%';
+    messageBox.style.left = '50%';
+    messageBox.style.transform = 'translate(-50%, -50%)';
+    messageBox.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+    messageBox.style.color = 'white';
+    messageBox.style.padding = '20px';
+    messageBox.style.borderRadius = '10px';
+    messageBox.style.zIndex = '1000';
+    document.body.appendChild(messageBox);
+
+    // 2초 후 메시지를 제거하고 alert 표시
+    setTimeout(() => {
+        document.body.removeChild(messageBox);
+        alert('레시피를 찾아보자');
+    }, 2000);
+}
+
+function displayMessage2(message, callback) {
+    const messageBox = document.createElement('div');
+    messageBox.textContent = message;
+    messageBox.style.position = 'fixed';
+    messageBox.style.top = '50%';
+    messageBox.style.left = '50%';
+    messageBox.style.transform = 'translate(-50%, -50%)';
+    messageBox.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+    messageBox.style.color = 'white';
+    messageBox.style.padding = '20px';
+    messageBox.style.borderRadius = '10px';
+    messageBox.style.zIndex = '1000';
+    document.body.appendChild(messageBox);
+
+    // 2초 후 메시지를 제거하고 콜백 함수 호출
+    setTimeout(() => {
+        document.body.removeChild(messageBox);
+        if (callback) callback();
+    }, 2000);
+}
 
 // 클릭 횟수를 확인하는 함수
+
 function checkLiquorClickCombination() {
+    //---------------------------------//
+    //            레시피 1번            //
+    //---------------------------------//
     if (liquorClickCounts['레몬주스따르기'] === 1 &&
         liquorClickCounts['스미노프따르기'] === 1 &&
         liquorClickCounts['오렌지주스따르기'] === 1 &&
         liquorClickCounts['봄베이따르기'] === 0 &&
         liquorClickCounts['럼따르기'] === 0 &&
         liquorClickCounts['달모어따르기'] === 0) {
-        setTimeout(function() {
-            imageElement.src = '../image/images/barpage/잔을채우다1.png';
-            setTimeout(function() {
-                imageElement.src = '../image/images/barpage/잔완성.png';
+        setTimeout(function () {
+            imageElement.src = '../image/images/barpage/갈색잔채우다.png';
+            setTimeout(function () {
+                imageElement.src = '../image/images/barpage/갈색잔완성.png';
                 thirdImageDisplayed = false;
                 document.getElementById('close-button').style.display = 'block';
+                addFinalClickArea("갈색술"); // 기존 레시피 - 갈색술
             }, 1000); // 1초 동안 특정 이미지를 표시한 후 원래 이미지로 돌아가기
         }, 500);
         return true;
     }
+
+    //---------------------------------//
+    //            레시피 2번            //
+    //---------------------------------//
+    if (liquorClickCounts['레몬주스따르기'] === 0 &&
+        liquorClickCounts['스미노프따르기'] === 0 &&
+        liquorClickCounts['오렌지주스따르기'] === 0 &&
+        liquorClickCounts['봄베이따르기'] === 2 &&
+        liquorClickCounts['럼따르기'] === 1 &&
+        liquorClickCounts['달모어따르기'] === 2) {
+        setTimeout(function () {
+            imageElement.src = '../image/images/barpage/보라잔채우다.png';
+            setTimeout(function () {
+                imageElement.src = '../image/images/barpage/보라잔완성.png';
+                thirdImageDisplayed = false;
+                document.getElementById('close-button').style.display = 'block';
+                addFinalClickArea("보라술"); // 새로운 레시피 - 보라술
+            }, 1000); // 1초 동안 특정 이미지를 표시한 후 원래 이미지로 돌아가기
+        }, 500);
+        return true;
+    }
+
     return false;
 }
+
 
 // 클릭 횟수를 초기화하는 함수
 function resetLiquorClickCounts() {
@@ -285,6 +466,94 @@ function resetLiquorClickCounts() {
         liquorClickCounts[key] = 0;
     }
 }
+
 // 초기 영역 추가
 addClickableAreas();
 
+// wordle에서 돌아왔을 때 레시피를 추가
+// window.onload 이벤트 수정
+window.onload = function() {
+    const selectedItem = localStorage.getItem("itemSelected");
+    const boyfriendAreaClicked = localStorage.getItem("boyfriendAreaClicked") === 'true';
+
+    if (selectedItem && selectedItem === '갈색술' && boyfriendAreaClicked) {
+        imageElement.src = '../image/images/barpage/내버려둬(잔x).png';
+        otherAreaClicked = true;
+        addCloseButton();
+        removeClickableAreas(); // 영역 제거
+        addPaperArea(); // 남자친구 클릭 시 추가 영역 생성
+        displayMessage1('아, 술이 부족하군요. 신문을 한번 보시고 다른 레시피를 찾아 술을 더 마련해주시면 감사하겠습니다.');
+        
+        // 인벤토리에서 갈색 술 아이템 삭제
+        let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
+        const itemIndex = inventory.indexOf('../image/images/useritem/갈색술.png');
+        if (itemIndex > -1) {
+            inventory.splice(itemIndex, 1);
+            localStorage.setItem('inventory', JSON.stringify(inventory));
+        }
+
+        localStorage.removeItem("itemSelected");
+        localStorage.removeItem("boyfriendAreaClicked");
+    }
+
+    if (selectedItem && selectedItem === '보라술' && boyfriendAreaClicked) {
+        imageElement.src = '../image/images/barpage/내버려둬(잔x).png';
+        otherAreaClicked = true;
+        addCloseButton();
+        removeClickableAreas(); // 영역 제거
+        addPaperArea(); // 남자친구 클릭 시 추가 영역 생성
+        displayMessage2('감사합니다. 여기 사진을 드릴께요. 소중히 다뤄주세요.', function() {
+            // 인벤토리에서 보라 술 아이템 삭제
+            let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
+            const itemIndex = inventory.indexOf('../image/images/useritem/보라술.png');
+            if (itemIndex > -1) {
+                inventory.splice(itemIndex, 1);
+                localStorage.setItem('inventory', JSON.stringify(inventory));
+            }
+
+            // 인벤토리에 깨진액자 추가
+            if (!inventory.includes('../image/images/useritem/깨진액자.png')) {
+                inventory.push('../image/images/useritem/깨진액자.png');
+                localStorage.setItem('inventory', JSON.stringify(inventory));
+            }
+
+            alert('깨진액자를 획득하였습니다.');
+            localStorage.removeItem("itemSelected");
+            localStorage.removeItem("boyfriendAreaClicked");
+        });
+    }
+    const recipeWon = localStorage.getItem("recipeWon");
+
+    if (recipeWon === "true") {
+        // 레시피2를 인벤토리에 추가
+        let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
+        const itemExists = inventory.includes('../image/images/useritem/레시피2.png');
+        if (!itemExists) {
+            inventory.push('../image/images/useritem/레시피2.png');
+            localStorage.setItem('inventory', JSON.stringify(inventory));
+            alert('레시피를 획득하였습니다.');
+        }
+
+        localStorage.removeItem("recipeWon");
+    }
+
+    const purpleDrinkWon = localStorage.getItem("purpleDrinkWon");
+
+    if (purpleDrinkWon === "true") {
+        // 보라술을 인벤토리에 추가
+        let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
+        const itemExists = inventory.includes('../image/images/useritem/보라술.png');
+        if (!itemExists) {
+            inventory.push('../image/images/useritem/보라술.png');
+            localStorage.setItem('inventory', JSON.stringify(inventory));
+            alert('보라술을 획득하였습니다.');
+        }
+
+        localStorage.removeItem("purpleDrinkWon");
+    }
+}
+
+// 모달 닫기 기능 추가
+document.getElementById('recipe-modal').addEventListener('click', function() {
+    this.style.display = 'none';
+});
