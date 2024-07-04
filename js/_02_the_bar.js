@@ -128,7 +128,6 @@ function addCloseButton() {
         addClickableAreas(); // 닫기 버튼 클릭 시 영역 다시 추가
         document.getElementById("left-button").style.display = ""; // 왼쪽오른쪽 버튼숨기기
         document.getElementById("right-button").style.display = "";
-
     });
 }
 
@@ -203,7 +202,7 @@ function handleLiquorClick(event, area) {
     }
 }
 
-// 특정 영역을 클릭했을 때 종이 영역 추가되는 함수
+// 특정 영역을 클릭했을 때 종이(신문) 영역 추가되는 함수
 function addPaperArea() {
     const paperArea = { x: 495, y: 717, width: 126, height: 63 };
 
@@ -394,7 +393,7 @@ function displayMessage2(message, callback) {
     const messageBox = document.createElement('div');
     messageBox.textContent = message;
     messageBox.style.position = 'fixed';
-    messageBox.style.top = '50%';
+    messageBox.style.top = '20%';
     messageBox.style.left = '50%';
     messageBox.style.transform = 'translate(-50%, -50%)';
     messageBox.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
@@ -404,12 +403,20 @@ function displayMessage2(message, callback) {
     messageBox.style.zIndex = '1000';
     document.body.appendChild(messageBox);
 
-    // 2초 후 메시지를 제거하고 콜백 함수 호출
+    // 화면을 잠깐 다른 이미지로 바꾸기
+    const originalSrc = imageElement.src;
+    imageElement.src = '../image/images/barpage/심장건네는남자.png';
+    console.log('Image changed to 심장건네는남자.PNG');
+
+    // 이미지가 바뀐 후 2초 동안 유지
     setTimeout(() => {
         document.body.removeChild(messageBox);
+        imageElement.src = originalSrc;
+        console.log('Image reverted to original');
         if (callback) callback();
     }, 2000);
 }
+
 
 // 클릭 횟수를 확인하는 함수
 
@@ -484,7 +491,7 @@ window.onload = function() {
         addPaperArea(); // 남자친구 클릭 시 추가 영역 생성
         displayMessage1('아, 술이 부족하군요. 신문을 한번 보시고 다른 레시피를 찾아 술을 더 마련해주시면 감사하겠습니다.');
         
-        // 인벤토리에서 갈색 술 아이템 삭제
+        // 인벤토리에서 갈색 술 아이템 삭제-
         let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
         const itemIndex = inventory.indexOf('../image/images/useritem/갈색술.png');
         if (itemIndex > -1) {
@@ -502,7 +509,7 @@ window.onload = function() {
         addCloseButton();
         removeClickableAreas(); // 영역 제거
         addPaperArea(); // 남자친구 클릭 시 추가 영역 생성
-        displayMessage2('감사합니다. 여기 사진을 드릴께요. 소중히 다뤄주세요.', function() {
+        displayMessage2('감사합니다. 여기 제 심장을 드릴께요. 소중히 다뤄주세요.', function() {
             // 인벤토리에서 보라 술 아이템 삭제
             let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
             const itemIndex = inventory.indexOf('../image/images/useritem/보라술.png');
@@ -510,18 +517,20 @@ window.onload = function() {
                 inventory.splice(itemIndex, 1);
                 localStorage.setItem('inventory', JSON.stringify(inventory));
             }
+            
 
-            // 인벤토리에 깨진액자 추가
-            if (!inventory.includes('../image/images/useritem/깨진액자.png')) {
-                inventory.push('../image/images/useritem/깨진액자.png');
+            // 인벤토리에 심장 추가
+            if (!inventory.includes('../image/images/useritem/심장.PNG')) {
+                inventory.push('../image/images/useritem/심장.PNG');
                 localStorage.setItem('inventory', JSON.stringify(inventory));
             }
 
-            alert('깨진액자를 획득하였습니다.');
+            alert('심장을 획득하였습니다.');
             localStorage.removeItem("itemSelected");
             localStorage.removeItem("boyfriendAreaClicked");
         });
     }
+
     const recipeWon = localStorage.getItem("recipeWon");
 
     if (recipeWon === "true") {

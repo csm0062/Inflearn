@@ -21,6 +21,12 @@
 
     <!-- 추가적으로 필요한 스크립트 등을 불러오기 -->
     <script src="../js/_01_the_hostel.js"></script>
+    <script>
+        window.onload = function() {
+            localStorage.removeItem("drawerUnlocked");
+            localStorage.removeItem("clockSolved");
+        }
+    </script>
 
 </body>
 </html>

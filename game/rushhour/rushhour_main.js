@@ -147,10 +147,40 @@ function update() {
     win.angle++;
 }
 
+var gameWon = false; // 게임 승리 여부를 추적하는 플래그 변수
+
 function winner() {
-    console.log("win");
-    winText.text = 'You Won!';
+    if (!gameWon) {
+        console.log("win");
+        winText.text = 'You Won!';
+        gameWon = true; // 승리 상태로 설정
+    }
+    // 인벤토리에 깨진액자 추가
+    let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
+    const itemExists = inventory.includes('../image/images/useritem/깨진액자.png');
+    if (!itemExists) {
+        inventory.push('../image/images/useritem/깨진액자.png');
+        localStorage.setItem('inventory', JSON.stringify(inventory));
+    }
+
+    // 메시지 표시 후 페이지 이동
+    setTimeout(function() {
+        alert('사진을 얻었습니다.');
+        window.location.href = '../../HTML/_03_right_wall.html'; // 돌아갈 페이지로 이동
+    }, 500);
 }
+
+function update() {
+    tiles.forEach(function (t) {
+        t.occupied = false;
+    });
+    game.physics.arcade.overlap(blocks, tiles, overlapt, null, this);
+    if (!gameWon) { // 게임이 아직 승리 상태가 아닌 경우에만 승리 조건 검사
+        game.physics.arcade.overlap(mainBlock, win, winner, null, this);
+    }
+    win.angle++;
+}
+
 
 function overlapt(block, tile) {
     if (block != currentBlock) {

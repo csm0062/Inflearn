@@ -27,12 +27,6 @@
     <div class="wrapper">
       <header>
         <h2>deaD faCE</h2>
-        <!-- <div class="column volume-slider"> -->
-          <!-- <span>Volume</span><input type="range" min="0" max="1" value="0.5" step="any"> -->
-        <!-- </div> -->
-        <!-- <div class="column keys-checkbox"> -->
-          <!-- <span>Show Keys</span><input type="checkbox" checked> -->
-        <!-- </div> -->
       </header>
       <ul class="piano-keys">
         <li class="key white" data-key="a" id="c" onclick="pianoClick(this);"><span></span></li>
@@ -95,7 +89,22 @@
         //-------//
         if(clearBox) {
           console.log(clearBox); // 여기에 단서 있는 화면으로 바꾸는 기능ㄱ
+          
+          // 인벤토리에 깨진액자 추가
+          let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
+          const itemExists = inventory.includes('../image/images/useritem/쟁미.png');
+          if (!itemExists) {
+              inventory.push('../image/images/useritem/쟁미.png');
+              localStorage.setItem('inventory', JSON.stringify(inventory));
+          }
+
+          // 메시지 표시 후 페이지 이동
+          setTimeout(function() {
+              alert('장미를 얻었습니다.');
+              window.location.href = '../../HTML/_03_right_wall.html'; // 돌아갈 페이지로 이동
+          }, 500);
         }
+        
 
         //-------------------------------------//
         // 틀렸으니까 다시 해보라고 알려주는 알람 //

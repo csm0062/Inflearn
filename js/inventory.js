@@ -47,12 +47,37 @@ function handleItemClick(item) {
         modalImg.src = item;
         modal.style.display = 'block';
     } else if (item === '../image/images/useritem/보라술.png') {
+        // const modal = document.getElementById('purple-modal');
+        // const modalImg = document.getElementById('purple-img');
         history.back();
         itemSelected = '보라술';
         localStorage.setItem("itemSelected", itemSelected);
         alert('보라 술이 선택되었습니다.');
+    }else if (item === '../image/images/useritem/동전.png') {
+        handleCoinClick(item);
     }
 }
+
+// 동전 아이템 클릭 이벤트 처리 함수
+function handleCoinClick(item) {
+    if (item === '../image/images/useritem/동전.png') {
+        alert('동전을 넣었다.');
+        localStorage.setItem("coinClick", true);
+        location.href = "../HTML/_05_left_wall.html";
+        
+    }
+}
+// 동전 아이템 클릭 이벤트 처리 함수
+// function handleCoinClick(item) {
+//     if (item === '../image/images/useritem/동전.png') {
+//         alert('동전을 넣었다.');
+//         imageElement.src = '../image/images/leftwall/동전올려진상자_배경.PNG';       
+//         setTimeout(() => {
+//             imageElement.src = '../image/images/leftwall/최종열린상자_배경.PNG';
+//         }, 2000);
+//         document.removeEventListener('click', handleCoinClick); // 이벤트 리스너 제거
+//     }
+// }
 
 function goToInventory() {
     window.location.href = "../HTML/inventory.html";
@@ -77,7 +102,3 @@ function getBack(){
     // 뒤로 가기 기능 구현
     window.history.back();
 }
-
-document.getElementById('recipe-modal').addEventListener('click', function () {
-    this.style.display = 'none';
-});

@@ -1,14 +1,3 @@
-// document.getElementById('game-container').addEventListener('mousemove', function(event) {
-//     const gameContainer = document.getElementById('game-container');
-//     const rect = gameContainer.getBoundingClientRect();
-
-//     const x = event.clientX - rect.left;
-//     const y = event.clientY - rect.top;
-
-//     console.log(`Mouse position relative to game-container: X=${x}, Y=${y}`);
-// });
-
-
 // 클릭 이벤트 관련 변수 초기화
 let buttonDisplayed = false;
 
@@ -17,8 +6,22 @@ const leftButton = document.getElementById('left-button');
 const rightButton = document.getElementById('right-button');
 let interval; // <= 티비 화면 전환을 위한 변수
 
-// 클릭가능한 영역을 추가하는 함수
-/* 사진은 나중에 다시 하는거로 */
+// 서랍 열림 상태 확인
+const drawerUnlocked = localStorage.getItem('drawerUnlocked') === 'true';
+
+window.onload = function() {
+    const coinClick = localStorage.getItem("coinClick") === 'true';
+
+    if(coinClick) {
+        imageElement.src = '../image/images/leftwall/동전올려진상자_배경.PNG';
+        setTimeout(() => {
+            imageElement.src = '../image/images/leftwall/최종열린상자_배경.PNG';
+            
+        }, 2000);
+    }
+}
+
+// 클릭 가능한 영역을 추가하는 함수
 function addClickableAreas() {
     const clickableAreas = [
         { id: 'menu', x: 203, y: 142, width: 120, height: 160, image: '../image/images/leftwall/메뉴판_수정.PNG' },
@@ -28,8 +31,8 @@ function addClickableAreas() {
         { id: 'television', x: 75, y: 342, width: 170, height: 160, image: '../image/images/leftwall/티비_1.PNG' },
         { id: 'green_drawer', x: 67, y: 537, width: 370, height: 220, image: '../image/images/leftwall/왼쪽벽열린선반_수정.PNG' },
         { id: 'chest', x: 298, y: 417, width: 100, height: 100, image: '../image/images/leftwall/열린상자_빈.PNG' },
-        { id: 'grandfather_clock', x: 1010, y: 141, width: 126, height: 419, href: '../game/clock/index.html' },
-        { id: 'grandfather_drawer', x: 971, y: 633, width: 212, height: 95, image: '../image/images/leftwall/괘종시계.PNG' }
+        { id: 'grandfather_clock', x: 1010, y: 141, width: 126, height: 419, href: '../game/clock/clock.html' },
+        { id: 'grandfather_drawer', x: 971, y: 633, width: 212, height: 95, image: drawerUnlocked ? '../image/images/leftwall/서랍속반지.PNG' : '' }
     ];
 
     clickableAreas.forEach(area => {
@@ -54,26 +57,42 @@ function addClickableAreas() {
             document.body.style.cursor = 'default';
         });
 
-        // 클릭 이벤트 리스너 추가
+        // green_drawer 클릭조건문
         overlay.addEventListener('click', function (event) {
             event.stopPropagation(); // 이벤트 전파를 막아 오버레이 뒤의 요소가 클릭되지 않도록 함
             handleFrameClick(event, area);
         });
 
-        //-----------------//
-        // tv화면클릭조건문 //
-        //-----------------//
+        // tv화면클릭조건문
         if (area.id === 'television') {
             overlay.addEventListener('click', function (event) {
                 event.stopPropagation(); // 이벤트 전파를 막아 오버레이 뒤의 요소가 클릭되지 않도록 함
                 addTVArea();
             });
         }
+
+        // green_drawer 클릭조건문
+        if (area.id === 'green_drawer') {
+            overlay.addEventListener('click', function (event) {
+                event.stopPropagation(); // 이벤트 전파를 막아 오버레이 뒤의 요소가 클릭되지 않도록 함
+                handleGreenDrawerClick();
+            });
+        }
     });
+
+    // 서랍이 열렸을 때 반지를 클릭할 수 있는 영역 추가
+    if (drawerUnlocked) {
+        addRingArea();
+    }
 }
 
-// 액자 클릭 이벤트를 처리하는 함수
+// 서랍과 액자 클릭 이벤트를 처리하는 함수
 function handleFrameClick(event, area) {
+    if (area.id === 'grandfather_drawer' && localStorage.getItem('clockSolved') !== 'true') {
+        alert('아직 문을 열 수 없습니다.');
+        return; // 이미지를 변경하지 않음
+    }
+
     if (area.href) {
         window.location.href = area.href;
     } else {
@@ -82,12 +101,16 @@ function handleFrameClick(event, area) {
         removeClickableAreas();
         leftButton.style.display = 'none';
         rightButton.style.display = 'none';
+
+        if (area.id === 'grandfather_drawer' && drawerUnlocked) {
+            addRingArea(); // 서랍이 열리면 반지 영역 추가
+        }
     }
 }
 
 // 클릭 가능한 영역을 제거하는 함수
 function removeClickableAreas() {
-    const overlays = document.querySelectorAll('.clickable-area');
+    const overlays = document.querySelectorAll('.clickable-area, .ring-area, .coin-area');
     overlays.forEach(overlay => {
         overlay.remove();
     });
@@ -116,22 +139,62 @@ function addCloseButton() {
     });
 }
 
+// 반지 클릭 가능한 영역 추가 함수
+function addRingArea() {
+    const ringArea = { x: 543, y: 389, width: 150, height: 100 }; // 실제 반지 위치로 조정
 
+    const overlay = document.createElement('div');
+    overlay.classList.add('ring-area');
+    overlay.style.position = 'absolute';
+    overlay.style.left = ringArea.x + 'px';
+    overlay.style.top = ringArea.y + 'px';
+    overlay.style.width = ringArea.width + 'px';
+    overlay.style.height = ringArea.height + 'px';
+    overlay.style.backgroundColor = 'transparent';
+    overlay.style.pointerEvents = 'auto';
+
+    document.getElementById('game-container').appendChild(overlay);
+
+    overlay.addEventListener('mouseenter', function () {
+        document.body.style.cursor = 'pointer';
+    });
+    overlay.addEventListener('mouseleave', function () {
+        document.body.style.cursor = 'default';
+    });
+
+    // 클릭 이벤트 리스너 추가
+    overlay.addEventListener('click', function (event) {
+        event.stopPropagation();
+        addRingToInventory();
+    });
+}
+
+// 반지를 인벤토리에 추가하는 함수
+function addRingToInventory() {
+    let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
+    const itemExists = inventory.includes('../image/images/useritem/반지.png');
+    if (!itemExists) {
+        inventory.push('../image/images/useritem/반지.png');
+        localStorage.setItem('inventory', JSON.stringify(inventory));
+        alert('반지를 획득하였습니다.');
+        window.location.href = '../HTML/_05_left_wall.html'; // 페이지 이동
+    }
+}
 
 function addTVArea() {
-    let i = 1;
+    let i = 0;
 
     const tvArea = { x: 437, y: 171, width: 434, height: 340 };
 
     const overlay = document.createElement('div');
     overlay.classList.add('tv-area');
-    overlay.style.position = 'absolute'; // 오버레이를 절대 위치로 설정
+    overlay.style.position = 'absolute';
     overlay.style.left = tvArea.x + 'px';
     overlay.style.top = tvArea.y + 'px';
     overlay.style.width = tvArea.width + 'px';
     overlay.style.height = tvArea.height + 'px';
-    overlay.style.backgroundColor = 'transparent'; // 영역이 보이지 않도록 투명하게 설정
-    overlay.style.pointerEvents = 'auto'; // 오버레이가 클릭 이벤트를 받도록 설정
+    overlay.style.backgroundColor = 'transparent';
+    overlay.style.pointerEvents = 'auto';
 
     document.getElementById('game-container').appendChild(overlay);
 
@@ -143,13 +206,11 @@ function addTVArea() {
     });
 
     otherAreaClicked = true;
-    imageElement.src = '../image/images/leftwall/티비_1.png';
+    imageElement.src = '../image/images/leftwall/티비_0.gif';
     addCloseButton();
     removeClickableAreas(); // 영역 제거
 
-    // ------------------ //
-    // 티비 화면 자동 전환 //
-    // ------------------ //
+    // 티비 화면 자동 전환
     interval = setInterval(function () {
         i++;
         imageElement.src = `../image/images/leftwall/티비_${i}.png`;
@@ -159,9 +220,7 @@ function addTVArea() {
         }
     }, 1000);
 
-    // ---------------- //
-    // 자동전환 on / off //
-    // ---------------- //
+    // 자동전환 on / off
     let turnbtn = false;
     overlay.addEventListener('click', () => {
         turnbtn = !turnbtn;
@@ -180,6 +239,46 @@ function addTVArea() {
     });
 }
 
+
+// green_drawer 클릭 이벤트 처리 함수
+function handleGreenDrawerClick() {
+    // 기존 클릭 가능한 영역 제거
+    removeClickableAreas();
+
+    // 현재 이미지 유지
+    addCloseButton(); // 'Back' 버튼 추가
+
+    // 새로운 클릭 가능한 영역 추가
+    const coinBoxArea = { x: 300, y: 696, width: 300, height: 300 }; // 실제 동전 상자 위치로 조정
+    const overlay = document.createElement('div');
+    overlay.classList.add('coin-area');
+    overlay.style.position = 'absolute';
+    overlay.style.left = coinBoxArea.x + 'px';
+    overlay.style.top = coinBoxArea.y + 'px';
+    overlay.style.width = coinBoxArea.width + 'px';
+    overlay.style.height = coinBoxArea.height + 'px';
+    overlay.style.backgroundColor = 'transparent';
+    overlay.style.pointerEvents = 'auto';
+
+    document.getElementById('game-container').appendChild(overlay);
+
+    overlay.addEventListener('mouseenter', function () {
+        document.body.style.cursor = 'pointer';
+    });
+    overlay.addEventListener('mouseleave', function () {
+        document.body.style.cursor = 'default';
+    });
+
+    overlay.addEventListener('click', function (event) {
+        event.stopPropagation();
+        showCoinBox()
+    });
+}
+
+// 동전 상자 이미지 표시 함수
+function showCoinBox() {
+    imageElement.src = '../image/images/leftwall/동전상자_배경.PNG';
+}
 
 // 초기 영역 추가
 addClickableAreas();

@@ -121,10 +121,9 @@ function checkGuess() {
         localStorage.setItem("recipeWon", "true");
 
         // 보라술 관련 로직 추가
-        if (someConditionToCheckPurpleDrink) {
-          localStorage.setItem("purpleDrinkWon", "true");
-        }
-
+        // if (someConditionToCheckPurpleDrink) {
+        //   localStorage.setItem("purpleDrinkWon", "true");
+        // }
         setTimeout(() => {
             window.location.href = "../../HTML/_02_the_bar.html";
         }, 2000);
