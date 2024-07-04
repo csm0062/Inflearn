@@ -13,7 +13,7 @@ var blocks,
 
 function preload () {
 		game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-		game.load.baseURL = 'http://192.168.0.38:5500/the_hostel/game/rushhour/';
+		game.load.baseURL = '/game/rushhour/rushhour.html';
 		game.load.crossOrigin = 'anonymous';
 
 		// Load different colored block images

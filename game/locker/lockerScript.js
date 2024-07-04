@@ -82,11 +82,11 @@ const patternbox = document.querySelector(".patternbox");
             // 메시지 표시 후 페이지 이동
             setTimeout(function() {
                 alert('시계를 얻었습니다.');
-                window.location.href = '../../HTML/_03_right_wall.html'; // 돌아갈 페이지로 이동
+                window.location.href = '../../HTML/03_right_wall.html'; // 돌아갈 페이지로 이동
             }, 500);
             }
         });
 
         document.getElementById('back-button').addEventListener('click', function() {
-            window.location.href = '../../HTML/_03_right_wall.html'; // 돌아갈 페이지로 이동
+            window.location.href = '../../HTML/03_right_wall.html'; // 돌아갈 페이지로 이동
         });

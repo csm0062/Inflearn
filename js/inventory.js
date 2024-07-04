@@ -63,7 +63,7 @@ function handleCoinClick(item) {
     if (item === '../image/images/useritem/동전.png') {
         alert('동전을 넣었다.');
         localStorage.setItem("coinClick", true);
-        location.href = "../HTML/_05_left_wall.html";
+        location.href = "../HTML/05_left_wall.html";
         
     }
 }

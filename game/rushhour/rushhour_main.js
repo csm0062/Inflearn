@@ -14,7 +14,7 @@ var blocks,
 
 function preload() {
     // game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL; // <== 자동크기조절하는 빌런
-    // game.load.baseURL = 'http://192.168.0.38:5500/the_hostel/game/rushhour/';
+    // game.load.baseURL = '/game/rushhour/rushhour.html';
     game.load.baseURL = '';
     game.load.crossOrigin = 'anonymous';
 
@@ -166,7 +166,7 @@ function winner() {
     // 메시지 표시 후 페이지 이동
     setTimeout(function() {
         alert('사진을 얻었습니다.');
-        window.location.href = '../../HTML/_03_right_wall.html'; // 돌아갈 페이지로 이동
+        window.location.href = '../../HTML/03_right_wall.html'; // 돌아갈 페이지로 이동
     }, 500);
 }
 
@@ -308,5 +308,5 @@ var levels = [
 
 
 document.getElementById('back-button').addEventListener('click', function () {
-    window.location.href = '../../HTML/_03_right_wall.html'; // 돌아갈 페이지로 이동
+    window.location.href = '../../HTML/03_right_wall.html'; // 돌아갈 페이지로 이동
 });

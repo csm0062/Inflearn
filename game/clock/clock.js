@@ -88,7 +88,7 @@ clearBtn.addEventListener('click', (e) => {
     localStorage.setItem('drawerUnlocked', 'true');
     localStorage.setItem('clockSolved', 'true');
     setTimeout(function() {
-      window.location.href = '../../HTML/_05_left_wall.html'; // left_wall.html로 이동
+      window.location.href = '../../HTML/05_left_wall.html'; // left_wall.html로 이동
     }, 500);
   } else {
     alert('시간이 맞지 않습니다. 다시 시도하세요.');
@@ -123,5 +123,5 @@ button3.addEventListener("click", (e) => {
 
 
 document.getElementById('back-button').addEventListener('click', function() {
-  window.location.href = '../../HTML/_05_left_wall.html'; // 돌아갈 페이지로 이동
+  window.location.href = '../../HTML/05_left_wall.html'; // 돌아갈 페이지로 이동
 });

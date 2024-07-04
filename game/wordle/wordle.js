@@ -125,7 +125,7 @@ function checkGuess() {
         //   localStorage.setItem("purpleDrinkWon", "true");
         // }
         setTimeout(() => {
-            window.location.href = "../../HTML/_02_the_bar.html";
+            window.location.href = "../../HTML/02_the_bar.html";
         }, 2000);
         return;
     } else {
@@ -225,5 +225,5 @@ initBoard(); // 게임 보드 초기화
 
 // 뒤로 가기 버튼 클릭 이벤트 리스너
 document.getElementById('back-button').addEventListener('click', function () {
-    window.location.href = '../../HTML/_02_the_bar.html'; // 이전 페이지로 이동
+    window.location.href = '../../HTML/02_the_bar.html'; // 이전 페이지로 이동
 });
