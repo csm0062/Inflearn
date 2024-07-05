@@ -13,10 +13,13 @@ window.onload = function() {
     const coinClick = localStorage.getItem("coinClick") === 'true';
 
     if(coinClick) {
-        imageElement.src = '../image/images/leftwall/동전올려진상자_배경.PNG';
+        const leftWallImage = document.getElementById('left-wall-image');
+        leftWallImage.src = '../image/images/leftwall/동전올려진상자_배경.PNG';
         setTimeout(() => {
-            imageElement.src = '../image/images/leftwall/최종열린상자_배경.PNG';
-            
+            leftWallImage.src = '../image/images/leftwall/최종열린상자_배경.PNG';
+            setTimeout(() => {
+                window.location.href = '../HTML/Ending.html';
+            }, 2000);
         }, 2000);
     }
 }
@@ -27,10 +30,10 @@ function addClickableAreas() {
         { id: 'menu', x: 203, y: 142, width: 120, height: 160, image: '../image/images/leftwall/메뉴판_수정.PNG' },
         { id: 'pianokey', x: 399, y: 206, width: 210, height: 160, image: '../image/images/leftwall/피아노건반.PNG' },
         { id: 'mirror', x: 712, y: 78, width: 160, height: 190, image: '../image/images/leftwall/거울_수정.PNG' },
-        { id: 'flowerpot', x: 703, y: 360, width: 130, height: 379, image: '../image/images/leftwall/꽃화분.PNG' },
+        // { id: 'flowerpot', x: 703, y: 360, width: 130, height: 379, image: '../image/images/leftwall/꽃화분.PNG' },
         { id: 'television', x: 75, y: 342, width: 170, height: 160, image: '../image/images/leftwall/티비_1.PNG' },
         { id: 'green_drawer', x: 67, y: 537, width: 370, height: 220, image: '../image/images/leftwall/왼쪽벽열린선반_수정.PNG' },
-        { id: 'chest', x: 298, y: 417, width: 100, height: 100, image: '../image/images/leftwall/열린상자_빈.PNG' },
+        // { id: 'chest', x: 298, y: 417, width: 100, height: 100, image: '../image/images/leftwall/열린상자_빈.PNG' },
         { id: 'grandfather_clock', x: 1010, y: 141, width: 126, height: 419, href: '../game/clock/clock.html' },
         { id: 'grandfather_drawer', x: 971, y: 633, width: 212, height: 95, image: drawerUnlocked ? '../image/images/leftwall/서랍속반지.PNG' : '' }
     ];
@@ -110,7 +113,7 @@ function handleFrameClick(event, area) {
 
 // 클릭 가능한 영역을 제거하는 함수
 function removeClickableAreas() {
-    const overlays = document.querySelectorAll('.clickable-area, .ring-area, .coin-area');
+    const overlays = document.querySelectorAll('.clickable-area, .ring-area, .coin-area, .tv-area');
     overlays.forEach(overlay => {
         overlay.remove();
     });

@@ -1,4 +1,4 @@
-const WORDS = "happy"; // 정답 단어 설정
+const WORDS = "crush"; // 정답 단어 설정
 const NUMBER_OF_GUESSES = 6; // 최대 시도 횟수
 let guessesRemaining = NUMBER_OF_GUESSES; // 남은 시도 횟수
 let currentGuess = []; // 현재 시도 중인 단어
