@@ -117,7 +117,7 @@ function addCloseButton() {
     buttonDisplayed = true;
 
     closeButton.addEventListener('click', function () {
-        imageElement.src = '../image/images/barpage/더호스텔바.PNG';
+        imageElement.src = '../image/images/barpage/더호스텔바.png';
         closeButton.remove();
         buttonDisplayed = false;
         otherAreaClicked = false;
@@ -155,7 +155,7 @@ function handleOverlayClick(event, area) {
     }
     // 웨이터 영역 클릭 시 동작
     else if (area.id === 'waiter-area' && checkAreaClick(area) && !buttonDisplayed) {
-        imageElement.src = '../image/images/barpage/말하는웨이터_수정.PNG';
+        imageElement.src = '../image/images/barpage/말하는웨이터.png';
         otherAreaClicked = true;
         addCloseButton();
         removeClickableAreas(); // 영역 제거
@@ -406,7 +406,7 @@ function displayMessage2(message, callback) {
     // 화면을 잠깐 다른 이미지로 바꾸기
     const originalSrc = imageElement.src;
     imageElement.src = '../image/images/barpage/심장건네는남자.png';
-    console.log('Image changed to 심장건네는남자.PNG');
+    console.log('Image changed to 심장건네는남자.png');
 
     // 이미지가 바뀐 후 2초 동안 유지
     setTimeout(() => {
@@ -520,8 +520,8 @@ window.onload = function() {
             
 
             // 인벤토리에 심장 추가
-            if (!inventory.includes('../image/images/useritem/심장.PNG')) {
-                inventory.push('../image/images/useritem/심장.PNG');
+            if (!inventory.includes('../image/images/useritem/심장.png')) {
+                inventory.push('../image/images/useritem/심장.png');
                 localStorage.setItem('inventory', JSON.stringify(inventory));
             }
 

@@ -62,7 +62,7 @@ function handleItemClick(item) {
         //---------------//
         // 모달 관련 코드 //
         //---------------//
-    } else if (item === '../image/images/useritem/심장.PNG') {
+    } else if (item === '../image/images/useritem/심장.png') {
         let modal = document.getElementById('heart-modal');
         let modalImg = document.getElementById('heart-img');
         modalImg.src = item;

@@ -19,7 +19,7 @@ const patternbox = document.querySelector(".patternbox");
         patternbox1.addEventListener("click", (e) => {
             cnt1++;
 
-            patternbox1.style.backgroundImage = `url('imgForClue_0${cnt1}.png')`
+            patternbox1.style.backgroundImage = `url('imgForClue${cnt1}.png')`
             patternbox2.style.backgroundRepeat = 'no-repeat';
             patternbox1.style.backgroundSize = 'cover';
 
@@ -30,7 +30,7 @@ const patternbox = document.querySelector(".patternbox");
         patternbox2.addEventListener("click", (e) => {
             cnt2++;
 
-            patternbox2.style.backgroundImage = `url('imgForClue_0${cnt2}.png')`;
+            patternbox2.style.backgroundImage = `url('imgForClue${cnt2}.png')`;
             patternbox2.style.backgroundRepeat = 'no-repeat';
             patternbox2.style.backgroundSize = 'cover';
 
@@ -41,7 +41,7 @@ const patternbox = document.querySelector(".patternbox");
         patternbox3.addEventListener("click", (e) => {
             cnt3++;
 
-            patternbox3.style.backgroundImage = `url('imgForClue_0${cnt3}.png')`
+            patternbox3.style.backgroundImage = `url('imgForClue${cnt3}.png')`
             patternbox3.style.backgroundRepeat = 'no-repeat';
             patternbox3.style.backgroundSize = 'cover';
 
@@ -52,7 +52,7 @@ const patternbox = document.querySelector(".patternbox");
         patternbox4.addEventListener("click", (e) => {
             cnt4++;
 
-            patternbox4.style.backgroundImage = `url('imgForClue_0${cnt4}.png')`
+            patternbox4.style.backgroundImage = `url('imgForClue${cnt4}.png')`
             patternbox4.style.backgroundRepeat = 'no-repeat';
             patternbox4.style.backgroundSize = 'cover';
 

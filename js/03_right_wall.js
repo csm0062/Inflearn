@@ -31,10 +31,10 @@ const rightButton = document.getElementById('right-button');
 function addClickableAreas() {
     const clickableAreas = [
         { id: 'rushhourgame', x: 117 , y: 185, width: 260, height: 230, href: '../game/rushhour/rushhour.html' },
-        { id: 'woman-frame', x: 520, y: 110, width: 140, height: 160, image: '../image/images/rightwall/여자액자2.PNG' },
-        { id: 'fish-frame', x: 714, y: 150, width: 150, height: 170, image: '../image/images/rightwall/물고기액자2.PNG' },
-        { id: 'shadow-right-frame', x: 917, y: 76, width: 180, height: 210, image: '../image/images/rightwall/그림자액자2.PNG' },
-        { id: 'tree-frame', x: 1122, y: 88, width: 130, height: 160, image: '../image/images/rightwall/나무액자2.PNG' },
+        { id: 'woman-frame', x: 520, y: 110, width: 140, height: 160, image: '../image/images/rightwall/여자액자2.png' },
+        { id: 'fish-frame', x: 714, y: 150, width: 150, height: 170, image: '../image/images/rightwall/물고기액자2.png' },
+        { id: 'shadow-right-frame', x: 917, y: 76, width: 180, height: 210, image: '../image/images/rightwall/그림자액자2.png' },
+        { id: 'tree-frame', x: 1122, y: 88, width: 130, height: 160, image: '../image/images/rightwall/나무액자2.png' },
         { id: 'pianoclick', x: 702, y: 566, width: 500, height: 120, href: '../game/piano/piano.html' },
         { id: 'lockerclick', x: 111, y: 440, width: 280, height: 280, href: '../game/locker/locker.html' }
     ];
@@ -102,7 +102,7 @@ function addCloseButton() {
     buttonDisplayed = true; 
 
     closeButton.addEventListener('click', function() {
-        imageElement.src = '../image/images/rightwall/오른쪽벽.PNG'; // 원래 이미지로 돌아가기
+        imageElement.src = '../image/images/rightwall/오른쪽벽.png'; // 원래 이미지로 돌아가기
         closeButton.remove();
         buttonDisplayed = false;
         removeClickableAreas(); // 클릭 가능한 모든 영역 제거

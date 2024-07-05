@@ -14,9 +14,9 @@ window.onload = function() {
 
     if(coinClick) {
         const leftWallImage = document.getElementById('left-wall-image');
-        leftWallImage.src = '../image/images/leftwall/동전올려진상자_배경.PNG';
+        leftWallImage.src = '../image/images/leftwall/동전올려진상자.png';
         setTimeout(() => {
-            leftWallImage.src = '../image/images/leftwall/최종열린상자_배경.PNG';
+            leftWallImage.src = '../image/images/leftwall/최종열린상자.png';
             setTimeout(() => {
                 window.location.href = '../HTML/Ending.html';
             }, 2000);
@@ -27,15 +27,15 @@ window.onload = function() {
 // 클릭 가능한 영역을 추가하는 함수
 function addClickableAreas() {
     const clickableAreas = [
-        { id: 'menu', x: 203, y: 142, width: 120, height: 160, image: '../image/images/leftwall/메뉴판_수정.PNG' },
-        { id: 'pianokey', x: 399, y: 206, width: 210, height: 160, image: '../image/images/leftwall/피아노건반.PNG' },
-        { id: 'mirror', x: 712, y: 78, width: 160, height: 190, image: '../image/images/leftwall/거울_수정.PNG' },
-        // { id: 'flowerpot', x: 703, y: 360, width: 130, height: 379, image: '../image/images/leftwall/꽃화분.PNG' },
-        { id: 'television', x: 75, y: 342, width: 170, height: 160, image: '../image/images/leftwall/티비_1.PNG' },
-        { id: 'green_drawer', x: 67, y: 537, width: 370, height: 220, image: '../image/images/leftwall/왼쪽벽열린선반_수정.PNG' },
-        // { id: 'chest', x: 298, y: 417, width: 100, height: 100, image: '../image/images/leftwall/열린상자_빈.PNG' },
+        { id: 'menu', x: 203, y: 142, width: 120, height: 160, image: '../image/images/leftwall/메뉴판.png' },
+        { id: 'pianokey', x: 399, y: 206, width: 210, height: 160, image: '../image/images/leftwall/피아노건반.png' },
+        { id: 'mirror', x: 712, y: 78, width: 160, height: 190, image: '../image/images/leftwall/거울.png' },
+        // { id: 'flowerpot', x: 703, y: 360, width: 130, height: 379, image: '../image/images/leftwall/꽃화분.png' },
+        { id: 'television', x: 75, y: 342, width: 170, height: 160, image: '../image/images/leftwall/티비_1.png' },
+        { id: 'green_drawer', x: 67, y: 537, width: 370, height: 220, image: '../image/images/leftwall/왼쪽벽열린선반.png' },
+        // { id: 'chest', x: 298, y: 417, width: 100, height: 100, image: '../image/images/leftwall/열린상자_빈.png' },
         { id: 'grandfather_clock', x: 1010, y: 141, width: 126, height: 419, href: '../game/clock/clock.html' },
-        { id: 'grandfather_drawer', x: 971, y: 633, width: 212, height: 95, image: drawerUnlocked ? '../image/images/leftwall/서랍속반지.PNG' : '' }
+        { id: 'grandfather_drawer', x: 971, y: 633, width: 212, height: 95, image: drawerUnlocked ? '../image/images/leftwall/서랍속반지.png' : '' }
     ];
 
     clickableAreas.forEach(area => {
@@ -131,7 +131,7 @@ function addCloseButton() {
     buttonDisplayed = true;
 
     closeButton.addEventListener('click', function () {
-        imageElement.src = '../image/images/leftwall/왼쪽벽.PNG'; // 원래 이미지로 돌아가기
+        imageElement.src = '../image/images/leftwall/왼쪽벽.png'; // 원래 이미지로 돌아가기
         closeButton.remove();
         buttonDisplayed = false;
         removeClickableAreas(); // 클릭 가능한 모든 영역 제거
@@ -209,14 +209,14 @@ function addTVArea() {
     });
 
     otherAreaClicked = true;
-    imageElement.src = '../image/images/leftwall/티비_0.gif';
+    imageElement.src = '../image/images/leftwall/티비0.gif';
     addCloseButton();
     removeClickableAreas(); // 영역 제거
 
     // 티비 화면 자동 전환
     interval = setInterval(function () {
         i++;
-        imageElement.src = `../image/images/leftwall/티비_${i}.png`;
+        imageElement.src = `../image/images/leftwall/티비${i}.png`;
 
         if (i === 4) {
             i = 0;
@@ -232,7 +232,7 @@ function addTVArea() {
         } else {
             interval = setInterval(function () {
                 i++;
-                imageElement.src = `../image/images/leftwall/티비_${i}.png`;
+                imageElement.src = `../image/images/leftwall/티비${i}.png`;
 
                 if (i === 4) {
                     i = 0;
@@ -280,7 +280,7 @@ function handleGreenDrawerClick() {
 
 // 동전 상자 이미지 표시 함수
 function showCoinBox() {
-    imageElement.src = '../image/images/leftwall/동전상자_배경.PNG';
+    imageElement.src = '../image/images/leftwall/동전상자.png';
 }
 
 // 초기 영역 추가

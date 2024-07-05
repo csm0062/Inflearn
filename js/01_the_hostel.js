@@ -4,7 +4,7 @@ let buttonDisplayed = false; // 버튼이 이미 표시되었는지 여부를 �
 document.getElementById('game-container').addEventListener('click', function() {
     if (!textDisplayed) { // 텍스트가 이미 표시되지 않은 경우에만 실행
         // 다음 화면에 표시할 이미지 경로
-        var nextImagePath = '../image/images/main/호스텔복도.JPG';
+        var nextImagePath = '../image/images/main/호스텔복도.jpg';
         
         // 이미지 요소 가져오기
         var imageElement = document.getElementById('hostel-image');
